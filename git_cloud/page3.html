@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GitSnap Dashboard</title>
+  <link rel="stylesheet" href="page3.css" />
+</head>
+<body>
+
+  <div class="app">
+
+    <!-- Top Bar -->
+    <header class="topbar">
+      <div class="user-info">
+        <h1>GitSnap</h1>
+        <p id="username">@username</p>
+      </div>
+
+      <div class="settings">⚙️</div>
+    </header>
+
+    <!-- Storage -->
+    <section class="storage">
+      <span>Storage</span>
+      <span class="storage-value">0.0 / 2500 MB</span>
+    </section>
+
+    <div class="storage-bar">
+      <div class="storage-fill"></div>
+    </div>
+
+    <!-- Repository -->
+    <section class="repo-box">
+      <span class="label">Repository</span>
+      <div class="repo-select">
+        Select repository <span>›</span>
+      </div>
+    </section>
+
+    <!-- Actions -->
+    <section class="actions">
+      <button class="capture">
+        📷 Capture
+      </button>
+
+      <button class="gallery">
+        🖼 Gallery
+        <span class="count">0</span>
+      </button>
+    </section>
+
+    <!-- Empty State -->
+    <section class="empty">
+      <div class="empty-icon">🖼</div>
+      <p>No images yet</p>
+    </section>
+
+  </div>
+
+  <script src="page3.js"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PixelVault – Token Setup</title>
+  <link rel="stylesheet" href="page2.css" />
+</head>
+<body>
+
+  <div class="app">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <div class="logo-icon">🐙</div>
+        <div>
+          <h1>PixelVault</h1>
+          <p>GitHub-Powered Image Storage</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Progress -->
+    <section class="progress-section">
+      <span class="step-text">Step 2 of 2</span>
+      <div class="progress-bar">
+        <div class="progress-fill full"></div>
+      </div>
+    </section>
+
+    <!-- Content -->
+    <main class="content">
+      <div class="icon-circle green">🔑</div>
+
+      <h2>GitHub Personal Access Token</h2>
+      <p class="subtitle">
+        Create a token with <span class="highlight">repo</span> permissions to enable image uploads.
+      </p>
+
+      <div class="form-group">
+        <label>Access Token</label>
+        <input type="password" id="token" placeholder="ghp_xxxxxxxxxxxx" />
+      </div>
+
+      <div class="info-box">
+        <strong>To create a token:</strong><br><br>
+        1. GitHub Settings → Developer settings<br>
+        2. Personal access tokens → Tokens (classic)<br>
+        3. Generate token with <b>repo</b> scope
+      </div>
+
+      <div class="warning-box">
+        Your token is stored locally and never shared.
+        PixelVault is not meant for sensitive data.
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <button class="secondary" onclick="goBack()">Back</button>
+      <button onclick="finishSetup()">Get Started →</button>
+    </footer>
+
+  </div>
+
+  <script src="page2.js"></script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PixelVault – Setup</title>
+  <link rel="stylesheet" href="home.css" />
+</head>
+<body>
+  <div class="app">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <div class="logo-icon">🐙</div>
+        <div>
+          <h1>PixelVault</h1>
+          <p>GitHub-Powered Image Storage</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Progress -->
+    <section class="progress-section">
+      <span class="step-text">Step 1 of 2</span>
+      <div class="progress-bar">
+        <div class="progress-fill"></div>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="content">
+      <div class="icon-circle">👤</div>
+
+      <h2>Welcome to PixelVault</h2>
+      <p class="subtitle">
+        Store and manage your images using GitHub repositories.
+        Let’s get you set up!
+      </p>
+
+      <div class="form-group">
+        <label for="username">GitHub Username</label>
+        <input
+          type="text"
+          id="username"
+          placeholder="octocat"
+        />
+      </div>
+
+      <div class="info-box">
+        We’ll use your username to connect to your GitHub repositories
+        and manage your images.
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <button id="continueBtn">
+        Continue <span>→</span>
+      </button>
+    </footer>
+
+  </div>
+
+  <script src="home.js"></script>
+</body>
+</html>
