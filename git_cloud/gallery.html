@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery</title>
+  <link rel="stylesheet" href="gallery.css" />
+</head>
+<body>
+
+  <div class="app">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="back" onclick="goBack()">←</div>
+      <div class="title">
+        <h1>Gallery</h1>
+        <p id="imageCount">0 images</p>
+      </div>
+    </header>
+
+    <!-- Divider -->
+    <div class="divider"></div>
+
+    <!-- Empty State -->
+    <section class="empty" id="emptyState">
+      <div class="empty-icon">📁</div>
+      <h2>No images found</h2>
+      <p>Start uploading images to see them here</p>
+    </section>
+
+    <!-- Image Grid (for later) -->
+    <section class="grid" id="imageGrid" hidden></section>
+
+  </div>
+
+  <script src="gallery.js"></script>
+</body>
+</html>

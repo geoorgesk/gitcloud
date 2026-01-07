@@ -33,8 +33,10 @@
     <!-- Repository -->
     <section class="repo-box">
       <span class="label">Repository</span>
-      <div class="repo-select">
-        Select repository <span>›</span>
+    
+      <div class="repo-select" onclick="openRepos()">
+        <span id="selectedRepoText">Select repository</span>
+        <span>›</span>
       </div>
     </section>
 
@@ -44,10 +46,11 @@
         📷 Capture
       </button>
 
-      <button class="gallery">
-        🖼 Gallery
-        <span class="count">0</span>
-      </button>
+     <button class="gallery" onclick="openGallery()">
+  🖼 Gallery
+  <span class="count">0</span>
+</button>
+
     </section>
 
     <!-- Empty State -->
@@ -57,6 +60,8 @@
     </section>
 
   </div>
+
+
 
   <script src="page3.js"></script>
 </body>
