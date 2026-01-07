@@ -34,11 +34,67 @@ function openGallery() {
   window.location.href = "gallery.html";
 }
 
-// Buttons (temporary)
-document.querySelector(".capture").addEventListener("click", () => {
-  alert("Camera capture will be implemented here");
+
+
+const captureBtn = document.querySelector(".capture");
+const modal = document.getElementById("captureModal");
+const cameraInput = document.getElementById("cameraInput");
+const fileInput = document.getElementById("fileInput");
+const uploadBtn = document.querySelector(".modal-upload");
+
+let selectedFiles = [];
+
+// Open modal
+captureBtn.addEventListener("click", () => {
+  modal.style.display = "flex";
 });
 
+// Close modal
+function closeModal() {
+  modal.style.display = "none";
+  selectedFiles = [];
+  uploadBtn.disabled = true;
+  uploadBtn.classList.remove("enabled");
+}
+
+// Camera
+function openCamera() {
+  cameraInput.click();
+}
+
+// File upload
+function openFileUpload() {
+  fileInput.click();
+}
+
+// Handle selections
+cameraInput.addEventListener("change", handleFiles);
+fileInput.addEventListener("change", handleFiles);
+
+function handleFiles(e) {
+  selectedFiles = Array.from(e.target.files);
+
+  if (selectedFiles.length > 0) {
+    uploadBtn.disabled = false;
+    uploadBtn.classList.add("enabled");
+  }
+}
+
+// Upload action (placeholder)
+function uploadImages() {
+  if (selectedFiles.length === 0) return;
+
+  alert(`${selectedFiles.length} image(s) ready to upload`);
+  console.log("Selected files:", selectedFiles);
+
+  closeModal();
+
+  /*
+    NEXT STEP:
+    - Send files to backend
+    - Upload to GitHub repo
+  */
+}
 
 
 

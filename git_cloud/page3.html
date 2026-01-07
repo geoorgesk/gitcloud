@@ -17,7 +17,6 @@
         <p id="username">@username</p>
       </div>
 
-      <div class="settings">⚙️</div>
     </header>
 
     <!-- Storage -->
@@ -49,6 +48,46 @@
      <button class="gallery" onclick="openGallery()">
   🖼 Gallery
   <span class="count">0</span>
+
+  <!-- Capture Modal -->
+<div class="modal" id="captureModal">
+  <div class="modal-box">
+
+    <h2>Add Photos</h2>
+
+    <button class="modal-btn" onclick="openCamera()">
+      📷 Take Photo
+    </button>
+
+    <button class="modal-btn" onclick="openFileUpload()">
+      🖼 Upload from Device
+    </button>
+
+    <button class="modal-upload" onclick="uploadImages()" disabled>
+      Upload
+    </button>
+
+    <button class="modal-close" onclick="closeModal()">Cancel</button>
+  </div>
+</div>
+
+<!-- Hidden Inputs -->
+<input
+  type="file"
+  id="cameraInput"
+  accept="image/*"
+  capture="environment"
+  hidden
+/>
+
+<input
+  type="file"
+  id="fileInput"
+  accept="image/*"
+  multiple
+  hidden
+/>
+
 </button>
 
     </section>
