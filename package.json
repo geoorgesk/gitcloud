@@ -1,0 +1,35 @@
+{
+  "dependencies": {
+    "@octokit/rest": "^22.0.1",
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "express-async-handler": "^1.2.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongodb": "^7.2.0",
+    "mongoose": "^9.6.2",
+    "multer": "^2.1.1"
+  },
+  "name": "gitcloud",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000g\u0000i\u0000t\u0000c\u0000l\u0000o\u0000u\u0000d\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/geoorgesk/gitcloud.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/geoorgesk/gitcloud/issues"
+  },
+  "homepage": "https://github.com/geoorgesk/gitcloud#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
