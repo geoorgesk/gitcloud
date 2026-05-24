@@ -1,5 +1,5 @@
 import { Octokit } from '@octokit/rest';
-import Repository from '../models/Repository.js';
+import Repository from '../../../models/Repository.js';
 
 const getOctokit = () => new Octokit({ auth: process.env.GITHUB_TOKEN });
 const getUsername = () => process.env.GITHUB_USERNAME;
