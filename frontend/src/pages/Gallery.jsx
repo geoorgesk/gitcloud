@@ -9,16 +9,17 @@ export default function Gallery() {
   const [selected, setSelected] = useState(null);
   const [search, setSearch] = useState('');
 
-  useEffect(() => { fetchPhotos(); }, []);
-
-  const fetchPhotos = async () => {
-    try {
-      const data = await getPhotos();
-      setPhotos(data);
-    } finally {
-      setLoading(false);
-    }
-  };
+  useEffect(() => {
+    const fetchPhotos = async () => {
+      try {
+        const data = await getPhotos();
+        setPhotos(data);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPhotos();
+  }, []);
 
   const handleDelete = async (photo, e) => {
     e?.stopPropagation();
@@ -60,8 +61,6 @@ export default function Gallery() {
           <h1 className="text-white text-2xl font-semibold">Gallery</h1>
           <p className="text-muted text-sm mt-1">{photos.length} photos</p>
         </div>
-
-        {/* Search */}
         <div className="relative">
           <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
           <input
@@ -116,13 +115,15 @@ export default function Gallery() {
         </div>
       )}
 
-      {/* Fullscreen */}
       {selected && (
         <div
           className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-6"
           onClick={() => setSelected(null)}
         >
-          <div onClick={(e) => e.stopPropagation()} className="max-w-4xl w-full">
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="max-w-4xl w-full"
+          >
             <img
               src={selected.githubUrl}
               alt={selected.filename}
@@ -131,10 +132,12 @@ export default function Gallery() {
             <div className="flex items-center justify-between mt-4">
               <div>
                 <p className="text-white text-sm font-medium truncate">{selected.filename}</p>
-                <p className="text-muted text-xs mt-0.5">{selected.repoName} · {(selected.size / 1024).toFixed(1)} KB</p>
+                <p className="text-muted text-xs mt-0.5">
+                  {selected.repoName} · {(selected.size / 1024).toFixed(1)} KB
+                </p>
               </div>
               <div className="flex gap-2">
-                
+                <a
                   href={selected.githubUrl}
                   target="_blank"
                   rel="noreferrer"
