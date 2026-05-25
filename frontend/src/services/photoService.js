@@ -42,3 +42,8 @@ export const deleteAlbum = async (id) => {
   const { data } = await api.delete(`/albums/${id}`);
   return data;
 };
+
+export const assignToAlbum = async (photoId, albumId) => {
+  const { data } = await api.patch(`/photos/${photoId}/album`, { albumId });
+  return data;
+};

@@ -5,8 +5,10 @@ export default function Layout() {
   return (
     <div className="flex bg-bg min-h-screen">
       <Sidebar />
-      <main className="ml-64 flex-1 p-6 lg:p-8 animate-fade-in">
-        <Outlet />
+      <main className="ml-64 flex-1 p-8 animate-fade-in">
+        <div className="max-w-5xl">
+          <Outlet />
+        </div>
       </main>
     </div>
   );

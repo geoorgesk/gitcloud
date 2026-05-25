@@ -9,5 +9,6 @@ router.post('/upload', upload.single('photo'), uploadPhoto);
 router.get('/', getPhotos);
 router.delete('/:id', deletePhoto);
 router.patch('/:id/favorite', toggleFavorite);
+router.patch('/:id/album', assignToAlbum);
 
 export default router;

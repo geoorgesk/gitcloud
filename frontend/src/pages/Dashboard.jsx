@@ -19,18 +19,22 @@ export default function Dashboard() {
 
   return (
     <div className="animate-fade-in">
-      <div className="mb-6">
+      {/* Header */}
+      <div className="mb-8">
         <h1 className="text-primary text-2xl font-semibold">
-          Good morning, {user?.username}
+          Welcome back, {user?.username}
         </h1>
         <p className="text-muted text-sm mt-1">Here's your storage overview</p>
       </div>
 
-      {/* Stats */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      {/* Stats grid */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         {items.map(({ label, value }) => (
-          <div key={label} className="bg-surface border border-border rounded-[6px] p-4 hover:border-border-hover transition duration-150">
-            <p className="text-muted text-xs uppercase tracking-wide font-medium mb-2">{label}</p>
+          <div
+            key={label}
+            className="bg-surface border border-border rounded-md p-5 hover:border-border-hover transition-colors duration-150"
+          >
+            <p className="text-muted text-xs uppercase tracking-wider font-medium mb-2">{label}</p>
             <p className="text-primary text-2xl font-semibold">{value}</p>
           </div>
         ))}
@@ -38,19 +42,19 @@ export default function Dashboard() {
 
       {/* Active Repo */}
       {stats && (
-        <div className="bg-surface border border-border rounded-[6px] p-4 mt-6">
-          <p className="text-muted text-xs uppercase tracking-wide font-medium mb-3">Active Repository</p>
-          <div className="flex items-center justify-between">
+        <div className="bg-surface border border-border rounded-md p-5">
+          <p className="text-muted text-xs uppercase tracking-wider font-medium mb-4">Active Repository</p>
+          <div className="flex items-center justify-between mb-3">
             <p className="text-primary text-sm font-semibold">{stats.activeRepo}</p>
             <p className="text-muted text-xs">{stats.activeRepoSize?.toFixed(2)} MB used</p>
           </div>
-          <div className="mt-3 h-2 bg-bg rounded-full overflow-hidden">
+          <div className="h-2 bg-border/30 rounded-full overflow-hidden">
             <div
-              className="h-full bg-success rounded-full transition-all duration-300"
+              className="h-full bg-success rounded-full transition-all duration-500"
               style={{ width: `${Math.min((stats.activeRepoSize / 800) * 100, 100)}%` }}
             />
           </div>
-          <p className="text-muted text-xs mt-2">800 MB limit</p>
+          <p className="text-muted text-xs mt-2">800 MB limit per repository</p>
         </div>
       )}
     </div>
