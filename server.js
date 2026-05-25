@@ -1,14 +1,12 @@
+import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
 import { connectDB } from './config/db.js';
 import passport from './config/passport.js';
 import authRoutes from './routes/authRoutes.js';
 import photoRoutes from './routes/photoRoutes.js';
 import albumRoutes from './routes/albumRoutes.js';
 import dashboardRoutes from './routes/dashboardRoutes.js';
-
-dotenv.config();
 
 const app = express();
 
