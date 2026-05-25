@@ -10,8 +10,10 @@ export const getActiveRepo = async (userId) => {
 
   if (!repo) {
     const user = await User.findById(userId);
+    const repoName = `gitcloud-${user.username.toLowerCase().replace(/[^a-z0-9-]/g, '-')}-storage-1`;
+
     repo = await Repository.create({
-      repoName: 'gitcloud-storage-1',
+      repoName,
       currentSize: 0,
       isActive: true,
       userId,
@@ -20,7 +22,7 @@ export const getActiveRepo = async (userId) => {
     try {
       const octokit = getOctokit(user.githubToken);
       await octokit.repos.createForAuthenticatedUser({
-        name: 'gitcloud-storage-1',
+        name: repoName,
         private: false,
         description: 'GitCloud photo storage',
         auto_init: true,
@@ -34,7 +36,7 @@ export const getActiveRepo = async (userId) => {
 };
 
 export const createNewRepo = async (index, userId, token, username) => {
-  const repoName = `gitcloud-storage-${index}`;
+  const repoName = `gitcloud-${username.toLowerCase().replace(/[^a-z0-9-]/g, '-')}-storage-${index}`;
   try {
     const octokit = getOctokit(token);
     await octokit.repos.createForAuthenticatedUser({
