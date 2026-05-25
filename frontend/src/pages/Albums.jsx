@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getAlbums, createAlbum, deleteAlbum } from '../services/photoService';
+import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { Trash2, Plus, Folder } from 'lucide-react';
 
@@ -7,6 +8,7 @@ export default function Albums() {
   const [albums, setAlbums] = useState([]);
   const [name, setName] = useState('');
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getAlbums().then(setAlbums).finally(() => setLoading(false));
@@ -27,7 +29,8 @@ export default function Albums() {
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id, e) => {
+    e.stopPropagation();
     if (!confirm('Delete this album?')) return;
     try {
       await deleteAlbum(id);
@@ -75,7 +78,8 @@ export default function Albums() {
           {albums.map((album) => (
             <div
               key={album._id}
-              className="flex items-center justify-between px-4 py-3 bg-surface border border-border rounded-lg group hover:border-accent/30 transition-all"
+              onClick={() => navigate(`/albums/${album._id}`)}
+              className="flex items-center justify-between px-4 py-3 bg-surface border border-border rounded-lg group hover:border-accent/30 transition-all cursor-pointer"
             >
               <div className="flex items-center gap-3">
                 <Folder size={15} strokeWidth={1.5} className="text-accent" />
@@ -89,7 +93,7 @@ export default function Albums() {
                 </div>
               </div>
               <button
-                onClick={() => handleDelete(album._id)}
+                onClick={(e) => handleDelete(album._id, e)}
                 className="text-muted hover:text-red-400 opacity-0 group-hover:opacity-100 transition-all p-1"
               >
                 <Trash2 size={14} />

@@ -6,13 +6,14 @@ import Dashboard from './pages/Dashboard';
 import Gallery from './pages/Gallery';
 import Upload from './pages/Upload';
 import Albums from './pages/Albums';
+import AlbumView from './pages/AlbumView';
 import Layout from './components/layout/Layout';
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
   if (loading) return (
     <div className="h-screen flex items-center justify-center bg-bg">
-      <div className="w-5 h-5 border-2 border-border border-t-accent rounded-full animate-spin" />
+      <div className="w-4 h-4 border border-white/20 border-t-white rounded-full animate-spin" />
     </div>
   );
   return user ? children : <Navigate to="/login" />;
@@ -33,6 +34,7 @@ export default function App() {
           <Route path="gallery" element={<Gallery />} />
           <Route path="upload" element={<Upload />} />
           <Route path="albums" element={<Albums />} />
+          <Route path="albums/:id" element={<AlbumView />} />
         </Route>
       </Routes>
     </BrowserRouter>
