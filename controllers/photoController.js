@@ -8,7 +8,7 @@ export const uploadPhoto = async (req, res) => {
   const { buffer, originalname, mimetype, size } = req.file;
   const { albumId } = req.body;
 
-  const result = await uploadToGitHub(buffer, originalname, mimetype);
+  const result = await uploadToGitHub(buffer, originalname, mimetype, req.user._id);
 
   const photo = await Photo.create({
     filename: result.filename,
@@ -43,7 +43,7 @@ export const deletePhoto = async (req, res) => {
   if (photo.userId.toString() !== req.user._id.toString())
     return res.status(403).json({ message: 'Not authorized' });
 
-  await deleteFromGitHub(photo.repoName, photo.filename, photo.fileSha);
+  await deleteFromGitHub(photo.repoName, photo.filename, photo.fileSha, req.user._id);
   await photo.deleteOne();
 
   res.json({ message: 'Photo deleted successfully' });
@@ -51,13 +51,9 @@ export const deletePhoto = async (req, res) => {
 
 export const toggleFavorite = async (req, res) => {
   const photo = await Photo.findById(req.params.id);
-
-  if (!photo)
-    return res.status(404).json({ message: 'Photo not found' });
-
+  if (!photo) return res.status(404).json({ message: 'Photo not found' });
   photo.isFavorite = !photo.isFavorite;
   await photo.save();
-
   res.json(photo);
 };
 
@@ -66,7 +62,6 @@ export const assignToAlbum = async (req, res) => {
   if (!photo) return res.status(404).json({ message: 'Photo not found' });
   if (photo.userId.toString() !== req.user._id.toString())
     return res.status(403).json({ message: 'Not authorized' });
-
   photo.albumId = req.body.albumId || null;
   await photo.save();
   res.json(photo);

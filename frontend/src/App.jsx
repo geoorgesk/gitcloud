@@ -7,6 +7,8 @@ import Gallery from './pages/Gallery';
 import Upload from './pages/Upload';
 import Albums from './pages/Albums';
 import AlbumView from './pages/AlbumView';
+import Settings from './pages/Settings';
+import AuthCallback from './pages/AuthCallback';
 import Layout from './components/layout/Layout';
 
 const ProtectedRoute = ({ children }) => {
@@ -25,6 +27,7 @@ export default function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/auth/callback" element={<AuthCallback />} />
         <Route path="/" element={
           <ProtectedRoute>
             <Layout />
@@ -35,6 +38,7 @@ export default function App() {
           <Route path="upload" element={<Upload />} />
           <Route path="albums" element={<Albums />} />
           <Route path="albums/:id" element={<AlbumView />} />
+          <Route path="settings" element={<Settings />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -5,19 +5,21 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
-    const savedUser = localStorage.getItem('user');
-    const token = localStorage.getItem('token');
-    if (savedUser && token) {
-      try {
+    try {
+      const savedUser = localStorage.getItem('user');
+      const token = localStorage.getItem('token');
+      if (savedUser && token && savedUser !== 'undefined') {
         return JSON.parse(savedUser);
-      } catch (error) {
-        console.error('Failed to parse saved user:', error);
-        localStorage.removeItem('user');
-        localStorage.removeItem('token');
       }
+    } catch (error) {
+      console.error('Failed to parse stored user data:', error);
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
     }
     return null;
   });
+
+  // Removed setLoading because it is no longer needed to fix the unused variable error
   const [loading] = useState(false);
 
   const login = async (email, password) => {
@@ -26,6 +28,12 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem('user', JSON.stringify(data));
     setUser(data);
     return data;
+  };
+
+  const loginWithToken = (data) => {
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('user', JSON.stringify(data));
+    setUser(data);
   };
 
   const register = async (username, email, password) => {
@@ -43,7 +51,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, register, logout, loading }}>
+    <AuthContext.Provider value={{ user, login, loginWithToken, register, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );

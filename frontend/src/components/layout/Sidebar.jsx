@@ -1,12 +1,13 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { LayoutDashboard, Images, Upload, BookImage, LogOut } from 'lucide-react';
+import { LayoutDashboard, Images, Upload, BookImage, LogOut, Settings } from 'lucide-react';
 
 const links = [
   { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
   { to: '/gallery', icon: Images, label: 'Gallery' },
   { to: '/upload', icon: Upload, label: 'Upload' },
   { to: '/albums', icon: BookImage, label: 'Albums' },
+  { to: '/settings', icon: Settings, label: 'Settings' },
 ];
 
 export default function Sidebar() {
@@ -22,13 +23,11 @@ export default function Sidebar() {
 
   return (
     <div className="w-64 h-screen bg-surface border-r border-border flex flex-col fixed left-0 top-0 z-10">
-      {/* Logo */}
       <div className="h-14 flex items-center gap-2.5 px-4 border-b border-border shrink-0">
         <div className="w-5 h-5 bg-white rounded-sm" />
         <span className="text-white font-semibold text-sm">GitCloud</span>
       </div>
 
-      {/* Nav */}
       <nav className="flex-1 px-3 py-3 space-y-0.5 overflow-y-auto">
         {links.map(({ to, icon: Icon, label }) => (
           <NavLink
@@ -49,7 +48,6 @@ export default function Sidebar() {
         ))}
       </nav>
 
-      {/* User */}
       <div className="border-t border-border px-3 py-3 shrink-0">
         <div className="flex items-center gap-2.5 px-3 py-2 mb-1">
           <div className="w-8 h-8 bg-btn-primary rounded-full flex items-center justify-center shrink-0">
