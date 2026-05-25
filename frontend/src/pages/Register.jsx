@@ -23,49 +23,69 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen bg-bg flex items-center justify-center">
-      <div className="w-full max-w-sm px-4">
-        <div className="flex items-center gap-2 mb-10">
-          <div className="w-5 h-5 bg-white rounded-sm" />
-          <span className="text-white font-semibold text-sm">GitCloud</span>
+    <div className="min-h-screen bg-bg flex items-center justify-center animate-fade-in">
+      <div className="w-full max-w-[308px] px-4">
+        {/* Cloud Logo */}
+        <div className="flex justify-center mb-6">
+          <svg
+            width="48"
+            height="48"
+            viewBox="0 0 24 24"
+            fill="white"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M19.35 10.04A7.49 7.49 0 0 0 12 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 0 0 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z" />
+          </svg>
         </div>
 
-        <h1 className="text-white text-xl font-semibold mb-1">Create account</h1>
-        <p className="text-muted text-sm mb-8">Get started for free</p>
+        {/* Heading – outside the card */}
+        <h1 className="text-primary text-2xl text-center font-light mb-4">
+          Create your account
+        </h1>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {[
-            { key: 'username', label: 'Username', type: 'text', placeholder: 'yourname' },
-            { key: 'email', label: 'Email', type: 'email', placeholder: 'you@example.com' },
-            { key: 'password', label: 'Password', type: 'password', placeholder: '••••••••' },
-          ].map(({ key, label, type, placeholder }) => (
-            <div key={key}>
-              <label className="text-xs text-muted block mb-1.5">{label}</label>
-              <input
-                type={type}
-                value={form[key]}
-                onChange={(e) => setForm({ ...form, [key]: e.target.value })}
-                className="w-full bg-surface border border-border rounded-md px-3 py-2.5 text-sm text-white placeholder-muted focus:outline-none focus:border-white/30 transition-colors"
-                placeholder={placeholder}
-                required
-              />
-            </div>
-          ))}
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-white text-black text-sm font-medium py-2.5 rounded-md hover:bg-white/90 transition-all disabled:opacity-50 mt-2"
+        {/* Card with form */}
+        <div className="bg-surface border border-border rounded-[6px] p-4 mb-4">
+          <form onSubmit={handleSubmit}>
+            {[
+              { key: 'username', label: 'Username', type: 'text' },
+              { key: 'email', label: 'Email address', type: 'email' },
+              { key: 'password', label: 'Password', type: 'password' },
+            ].map(({ key, label, type }) => (
+              <div key={key} className="mb-4 last:mb-4">
+                <label className="text-primary text-sm font-medium block mb-2">
+                  {label}
+                </label>
+                <input
+                  type={type}
+                  value={form[key]}
+                  onChange={(e) => setForm({ ...form, [key]: e.target.value })}
+                  className="w-full bg-bg border border-border rounded-[6px] px-3 py-[5px] h-[32px] text-sm text-primary placeholder-muted focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all duration-150 ease-in-out"
+                  required
+                />
+              </div>
+            ))}
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-btn-primary text-white text-sm font-medium rounded-[6px] py-[5px] px-4 hover:bg-btn-primary-hover transition-all duration-150 ease-in-out disabled:opacity-50"
+            >
+              {loading ? 'Creating account...' : 'Create account'}
+            </button>
+          </form>
+        </div>
+
+        {/* Bottom link card */}
+        <div className="border border-border rounded-[6px] p-4 text-center text-sm">
+          <span className="text-primary">Already have an account? </span>
+          <Link
+            to="/login"
+            className="text-accent hover:underline transition-all duration-150 ease-in-out"
           >
-            {loading ? 'Creating account...' : 'Create account'}
-          </button>
-        </form>
-
-        <p className="text-center text-muted text-sm mt-6">
-          Have an account?{' '}
-          <Link to="/login" className="text-white hover:underline">
             Sign in
           </Link>
-        </p>
+          .
+        </div>
       </div>
     </div>
   );

@@ -44,22 +44,22 @@ export default function Upload() {
   const pending = files.filter(f => f.status === 'pending').length;
 
   return (
-    <div>
+    <div className="animate-fade-in">
       <div className="mb-8">
-        <h1 className="text-white text-2xl font-semibold">Upload</h1>
+        <h1 className="text-primary text-2xl font-normal">Upload</h1>
         <p className="text-muted text-sm mt-1">Add photos to your GitCloud storage</p>
       </div>
 
       {/* Dropzone */}
       <div
         {...getRootProps()}
-        className={`border border-dashed rounded-lg p-12 text-center cursor-pointer transition-all mb-6 ${
-          isDragActive ? 'border-white/40 bg-white/5' : 'border-border hover:border-white/20'
+        className={`border-2 border-dashed rounded-[6px] p-10 text-center cursor-pointer transition duration-150 mb-6 ${
+          isDragActive ? 'border-accent bg-accent/5' : 'border-border hover:border-border-hover'
         }`}
       >
         <input {...getInputProps()} />
-        <UploadIcon size={24} strokeWidth={1.5} className="text-muted mx-auto mb-3" />
-        <p className="text-white text-sm font-medium">
+        <UploadIcon size={32} strokeWidth={1.5} className="text-muted mx-auto mb-3" />
+        <p className="text-primary text-sm font-medium">
           {isDragActive ? 'Drop files here' : 'Drag photos here'}
         </p>
         <p className="text-muted text-xs mt-1">or click to browse — JPG, PNG, WEBP up to 10MB</p>
@@ -74,35 +74,35 @@ export default function Upload() {
               <button
                 onClick={uploadAll}
                 disabled={uploading}
-                className="bg-white text-black text-xs font-medium px-4 py-2 rounded-md hover:bg-white/90 transition-all disabled:opacity-50"
+                className="bg-btn-primary text-white text-sm font-medium px-4 py-[5px] rounded-[6px] hover:bg-btn-primary-hover transition duration-150 disabled:opacity-50"
               >
                 {uploading ? 'Uploading...' : `Upload ${pending} files`}
               </button>
             )}
           </div>
 
-          <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-2">
+          <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-3">
             {files.map((item) => (
-              <div key={item.id} className="relative group aspect-square">
+              <div key={item.id} className="relative group aspect-square rounded-[6px] overflow-hidden border border-border">
                 <img
                   src={item.preview}
-                  className="w-full h-full object-cover rounded-md"
+                  className="w-full h-full object-cover"
                   alt=""
                 />
-                <div className="absolute inset-0 bg-black/50 rounded-md opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center">
+                <div className="absolute inset-0 bg-black/60 rounded-[6px] opacity-0 group-hover:opacity-100 transition duration-150 flex items-center justify-center">
                   {item.status === 'pending' && (
                     <button onClick={() => remove(item.id)}>
-                      <X size={16} className="text-white" />
+                      <X size={16} className="text-primary" />
                     </button>
                   )}
                   {item.status === 'uploading' && (
-                    <Loader size={16} className="text-white animate-spin" />
+                    <Loader size={16} className="text-accent animate-spin" />
                   )}
                   {item.status === 'done' && (
-                    <Check size={16} className="text-green-400" />
+                    <Check size={16} className="text-success" />
                   )}
                   {item.status === 'error' && (
-                    <X size={16} className="text-red-400" />
+                    <X size={16} className="text-danger" />
                   )}
                 </div>
               </div>

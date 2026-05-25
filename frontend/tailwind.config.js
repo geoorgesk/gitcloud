@@ -4,16 +4,25 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', '"Noto Sans"', 'Helvetica', 'Arial', 'sans-serif'],
       },
       colors: {
-        bg: '#0c0c0c',
-        surface: '#141414',
-        border: '#222222',
-        muted: '#555555',
-        accent: '#e2e2e2',
-        primary: '#ffffff',
-      }
+        bg: '#0d1117',
+        surface: '#161b22',
+        'surface-hover': '#1c2129',
+        border: '#30363d',
+        'border-hover': '#484f58',
+        muted: '#8b949e',
+        accent: '#58a6ff',
+        primary: '#e6edf3',
+        success: '#3fb950',
+        danger: '#f85149',
+        'btn-primary': '#238636',
+        'btn-primary-hover': '#2ea043',
+      },
+      borderRadius: {
+        gh: '6px',
+      },
     },
   },
   plugins: [],

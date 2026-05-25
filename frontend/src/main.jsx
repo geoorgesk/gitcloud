@@ -13,10 +13,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         position="bottom-right"
         toastOptions={{
           style: {
-            background: '#141414',
-            color: '#e2e2e2',
-            border: '1px solid #222',
-            fontSize: '13px',
+            background: '#161b22',
+            color: '#e6edf3',
+            border: '1px solid #30363d',
+            fontSize: '14px',
+            fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+            borderRadius: '6px',
           },
         }}
       />
