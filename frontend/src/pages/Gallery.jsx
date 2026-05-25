@@ -1,25 +1,29 @@
 import { useEffect, useState } from 'react';
-import { getPhotos, deletePhoto, toggleFavorite } from '../services/photoService';
+import { getPhotos, deletePhoto, toggleFavorite, assignToAlbum, getAlbums } from '../services/photoService';
 import toast from 'react-hot-toast';
-import { Trash2, Heart, Download, X, Search } from 'lucide-react';
+import { Trash2, Heart, Download, X, Search, FolderPlus, Check } from 'lucide-react';
 
 export default function Gallery() {
   const [photos, setPhotos] = useState([]);
+  const [albums, setAlbums] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState(null);
   const [search, setSearch] = useState('');
+  const [albumPicker, setAlbumPicker] = useState(null);
 
   useEffect(() => {
-    const fetchPhotos = async () => {
-      try {
-        const data = await getPhotos();
-        setPhotos(data);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchPhotos();
+    getAlbums().then(setAlbums);
   }, []);
+
+  const fetchPhotos = async () => {
+    try {
+      const data = await getPhotos();
+      setPhotos(data);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleDelete = async (photo, e) => {
     e?.stopPropagation();
@@ -41,6 +45,17 @@ export default function Gallery() {
       setPhotos(prev => prev.map(p => p._id === updated._id ? updated : p));
     } catch {
       toast.error('Failed');
+    }
+  };
+
+  const handleAssignAlbum = async (photo, albumId) => {
+    try {
+      const updated = await assignToAlbum(photo._id, albumId);
+      setPhotos(prev => prev.map(p => p._id === updated._id ? updated : p));
+      setAlbumPicker(null);
+      toast.success(albumId ? 'Added to album' : 'Removed from album');
+    } catch {
+      toast.error('Failed to update album');
     }
   };
 
@@ -68,7 +83,7 @@ export default function Gallery() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search photos..."
-            className="bg-surface border border-border rounded-md pl-9 pr-3 py-1.5 text-sm text-primary placeholder:text-muted focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent w-56"
+            className="bg-surface border border-border rounded-md pl-9 pr-3 py-1.5 text-sm text-primary placeholder:text-muted focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent w-56 transition-all duration-150"
           />
         </div>
       </div>
@@ -97,6 +112,62 @@ export default function Gallery() {
               {/* Hover overlay */}
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-150">
                 <div className="absolute bottom-2.5 right-2.5 flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-150">
+                  
+                  {/* Album Picker */}
+                  <div className="relative">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setAlbumPicker(albumPicker === photo._id ? null : photo._id);
+                      }}
+                      className="w-8 h-8 rounded-md flex items-center justify-center text-white hover:text-accent transition-colors duration-150"
+                      style={{ background: 'rgba(13,17,23,0.75)' }}
+                      title="Add to album"
+                    >
+                      <FolderPlus size={14} />
+                    </button>
+                    {albumPicker === photo._id && (
+                      <div
+                        className="absolute bottom-10 right-0 bg-surface border border-border rounded-md shadow-lg z-10 w-48 overflow-hidden animate-fade-in"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <div className="px-3 py-2 border-b border-border bg-surface-hover">
+                          <p className="text-primary text-xs font-semibold">Select album</p>
+                        </div>
+                        <div className="max-h-48 overflow-y-auto">
+                          {albums.length === 0 ? (
+                            <p className="text-muted text-xs px-3 py-3 text-center">No albums created</p>
+                          ) : (
+                            albums.map(album => (
+                              <button
+                                key={album._id}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleAssignAlbum(photo, album._id);
+                                }}
+                                className="w-full text-left flex items-center justify-between px-3 py-2 text-sm text-primary hover:bg-surface-hover transition-colors duration-150"
+                              >
+                                <span className="truncate">{album.name}</span>
+                                {photo.albumId === album._id && <Check size={14} className="text-success shrink-0 ml-2" />}
+                              </button>
+                            ))
+                          )}
+                        </div>
+                        {photo.albumId && (
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleAssignAlbum(photo, null);
+                            }}
+                            className="w-full text-left px-3 py-2 text-sm text-danger hover:bg-surface-hover border-t border-border transition-colors duration-150"
+                          >
+                            Remove from album
+                          </button>
+                        )}
+                      </div>
+                    )}
+                  </div>
+
                   <button
                     onClick={(e) => handleFavorite(photo, e)}
                     className="w-8 h-8 rounded-md flex items-center justify-center transition-colors duration-150"
@@ -104,7 +175,7 @@ export default function Gallery() {
                   >
                     <Heart
                       size={14}
-                      className={photo.isFavorite ? 'text-danger' : 'text-white'}
+                      className={photo.isFavorite ? 'text-danger' : 'text-white hover:text-danger'}
                       fill={photo.isFavorite ? 'currentColor' : 'none'}
                     />
                   </button>

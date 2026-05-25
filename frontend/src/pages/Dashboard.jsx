@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getStats } from '../services/photoService';
 import { useAuth } from '../context/AuthContext';
+import { Images, HardDrive, GitBranch, FolderOpen } from 'lucide-react';
 
 export default function Dashboard() {
   const [stats, setStats] = useState(null);
@@ -10,51 +11,47 @@ export default function Dashboard() {
     getStats().then(setStats);
   }, []);
 
-  const items = stats ? [
-    { label: 'Photos', value: stats.totalPhotos },
-    { label: 'Albums', value: stats.totalAlbums },
-    { label: 'Storage', value: `${(stats.totalSize / (1024 * 1024)).toFixed(1)} MB` },
-    { label: 'Repositories', value: stats.totalRepos },
+  const cards = stats ? [
+    { label: 'Total Photos', value: stats.totalPhotos, icon: Images },
+    { label: 'Total Albums', value: stats.totalAlbums, icon: FolderOpen },
+    { label: 'Storage Used', value: `${(stats.totalSize / (1024 * 1024)).toFixed(2)} MB`, icon: HardDrive },
+    { label: 'Repositories', value: stats.totalRepos, icon: GitBranch },
   ] : [];
 
   return (
-    <div className="animate-fade-in">
-      {/* Header */}
+    <div>
       <div className="mb-8">
-        <h1 className="text-primary text-2xl font-semibold">
+        <h1 className="text-white text-2xl font-semibold">
           Welcome back, {user?.username}
         </h1>
-        <p className="text-muted text-sm mt-1">Here's your storage overview</p>
+        <p className="text-muted text-sm mt-1">Your GitCloud storage overview</p>
       </div>
 
-      {/* Stats grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        {items.map(({ label, value }) => (
-          <div
-            key={label}
-            className="bg-surface border border-border rounded-md p-5 hover:border-border-hover transition-colors duration-150"
-          >
-            <p className="text-muted text-xs uppercase tracking-wider font-medium mb-2">{label}</p>
-            <p className="text-primary text-2xl font-semibold">{value}</p>
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
+        {cards.map(({ label, value, icon: Icon }) => (
+          <div key={label} className="bg-surface border border-border rounded-lg p-4 hover:border-accent/30 transition-all">
+            <div className="flex items-center gap-2 mb-3">
+              <Icon size={14} strokeWidth={1.5} className="text-muted" />
+              <p className="text-muted text-xs">{label}</p>
+            </div>
+            <p className="text-white text-xl font-semibold">{value ?? '—'}</p>
           </div>
         ))}
       </div>
 
-      {/* Active Repo */}
       {stats && (
-        <div className="bg-surface border border-border rounded-md p-5">
-          <p className="text-muted text-xs uppercase tracking-wider font-medium mb-4">Active Repository</p>
+        <div className="bg-surface border border-border rounded-lg p-5">
+          <p className="text-muted text-xs mb-4 uppercase tracking-wider">Active Repository</p>
           <div className="flex items-center justify-between mb-3">
-            <p className="text-primary text-sm font-semibold">{stats.activeRepo}</p>
-            <p className="text-muted text-xs">{stats.activeRepoSize?.toFixed(2)} MB used</p>
+            <p className="text-white text-sm font-medium">{stats.activeRepo}</p>
+            <p className="text-muted text-xs">{stats.activeRepoSize?.toFixed(2)} MB / 800 MB</p>
           </div>
-          <div className="h-2 bg-border/30 rounded-full overflow-hidden">
+          <div className="h-1.5 bg-border rounded-full overflow-hidden">
             <div
-              className="h-full bg-success rounded-full transition-all duration-500"
+              className="h-full bg-accent rounded-full transition-all"
               style={{ width: `${Math.min((stats.activeRepoSize / 800) * 100, 100)}%` }}
             />
           </div>
-          <p className="text-muted text-xs mt-2">800 MB limit per repository</p>
         </div>
       )}
     </div>

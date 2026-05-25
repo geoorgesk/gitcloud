@@ -1,5 +1,5 @@
 import express from 'express';
-import { uploadPhoto, getPhotos, deletePhoto, toggleFavorite } from '../controllers/photoController.js';
+import { uploadPhoto, getPhotos, deletePhoto, toggleFavorite, assignToAlbum } from '../controllers/photoController.js';
 import { protect } from '../middleware/authMiddleware.js';
 import { upload } from '../middleware/uploadMiddleware.js';
 

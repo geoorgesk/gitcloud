@@ -8,11 +8,7 @@ const getMaxSize = () => parseInt(process.env.MAX_REPO_SIZE_MB) || 800;
 export const getActiveRepo = async () => {
   let repo = await Repository.findOne({ isActive: true });
   if (!repo) {
-    repo = await Repository.create({
-      repoName: 'gitcloud-storage-1',
-      currentSize: 0,
-      isActive: true,
-    });
+    repo = await createNewRepo(1);
   }
   return repo;
 };

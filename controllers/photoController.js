@@ -60,3 +60,14 @@ export const toggleFavorite = async (req, res) => {
 
   res.json(photo);
 };
+
+export const assignToAlbum = async (req, res) => {
+  const photo = await Photo.findById(req.params.id);
+  if (!photo) return res.status(404).json({ message: 'Photo not found' });
+  if (photo.userId.toString() !== req.user._id.toString())
+    return res.status(403).json({ message: 'Not authorized' });
+
+  photo.albumId = req.body.albumId || null;
+  await photo.save();
+  res.json(photo);
+};

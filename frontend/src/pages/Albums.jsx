@@ -45,25 +45,23 @@ export default function Albums() {
         <p className="text-muted text-sm mt-1">Organize your photos into collections</p>
       </div>
 
-      {/* Create */}
       <div className="flex gap-2 mb-8">
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleCreate()}
           placeholder="New album name"
-          className="flex-1 bg-surface border border-border rounded-md px-3 py-2.5 text-sm text-white placeholder-muted focus:outline-none focus:border-white/30 transition-colors"
+          className="flex-1 bg-surface border border-border rounded-md px-3 py-2.5 text-sm text-white placeholder-muted focus:outline-none focus:border-accent transition-colors"
         />
         <button
           type="button"
           onClick={handleCreate}
-          className="bg-white text-black text-sm font-medium px-4 py-2.5 rounded-md hover:bg-white/90 transition-all flex items-center gap-2"
+          className="bg-btn-primary hover:bg-green-700 text-white text-sm font-medium px-4 py-2.5 rounded-md transition-all flex items-center gap-2"
         >
           <Plus size={15} /> Create
         </button>
       </div>
 
-      {/* List */}
       {loading ? (
         <div className="flex items-center justify-center h-32">
           <div className="w-4 h-4 border border-white/20 border-t-white rounded-full animate-spin" />
@@ -77,10 +75,10 @@ export default function Albums() {
           {albums.map((album) => (
             <div
               key={album._id}
-              className="flex items-center justify-between px-4 py-3 bg-surface border border-border rounded-lg group hover:border-white/20 transition-all"
+              className="flex items-center justify-between px-4 py-3 bg-surface border border-border rounded-lg group hover:border-accent/30 transition-all"
             >
               <div className="flex items-center gap-3">
-                <Folder size={15} strokeWidth={1.5} className="text-muted" />
+                <Folder size={15} strokeWidth={1.5} className="text-accent" />
                 <div>
                   <p className="text-white text-sm font-medium">{album.name}</p>
                   <p className="text-muted text-xs">

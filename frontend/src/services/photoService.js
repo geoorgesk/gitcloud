@@ -47,3 +47,5 @@ export const assignToAlbum = async (photoId, albumId) => {
   const { data } = await api.patch(`/photos/${photoId}/album`, { albumId });
   return data;
 };
+
+
