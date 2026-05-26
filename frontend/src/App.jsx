@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
 import Login from './pages/Login';
-import Register from './pages/Register';
+
 import Dashboard from './pages/Dashboard';
 import Gallery from './pages/Gallery';
 import Upload from './pages/Upload';
@@ -26,7 +26,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/register" element={<Navigate to="/login" />} />
         <Route path="/auth/callback" element={<AuthCallback />} />
         <Route path="/" element={
           <ProtectedRoute>

@@ -1,5 +1,4 @@
 import { createContext, useContext, useState } from 'react';
-import { login as loginService, register as registerService } from '../services/authService';
 
 const AuthContext = createContext();
 
@@ -19,29 +18,12 @@ export const AuthProvider = ({ children }) => {
     return null;
   });
 
-  // Removed setLoading because it is no longer needed to fix the unused variable error
   const [loading] = useState(false);
-
-  const login = async (email, password) => {
-    const data = await loginService(email, password);
-    localStorage.setItem('token', data.token);
-    localStorage.setItem('user', JSON.stringify(data));
-    setUser(data);
-    return data;
-  };
 
   const loginWithToken = (data) => {
     localStorage.setItem('token', data.token);
     localStorage.setItem('user', JSON.stringify(data));
     setUser(data);
-  };
-
-  const register = async (username, email, password) => {
-    const data = await registerService(username, email, password);
-    localStorage.setItem('token', data.token);
-    localStorage.setItem('user', JSON.stringify(data));
-    setUser(data);
-    return data;
   };
 
   const logout = () => {
@@ -51,7 +33,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, loginWithToken, register, logout, loading }}>
+    <AuthContext.Provider value={{ user, loginWithToken, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );

@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
   githubUsername: { type: String },
   githubToken: { type: String },
   avatar: { type: String },
-  authType: { type: String, enum: ['local', 'github'], default: 'local' },
+  authType: { type: String, enum: ['github'], default: 'github' },
 }, { timestamps: true });
 
 export default mongoose.model('User', userSchema);
